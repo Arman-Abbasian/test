@@ -1,5 +1,6 @@
 const express=require("express");
 const { hashPasswordpbkdf2, hashPasswordCreateHash, hashPasswordCreateHmac, verifyHashPasswordepbkdf2, verifyHashPasswordcreateHash, verifyHashPasswordcreateHmac } = require("./utils/hashPasswordCrypto");
+const { hashPasswordbcrypt, verifyPasswordbcrypt } = require("./utils/hashPasswordBcrypt");
 const app=express();
 app.use("/crypto",(req,res,next)=>{
    const hashPassword1= hashPasswordpbkdf2("12345");
@@ -17,6 +18,15 @@ app.use("/crypto",(req,res,next)=>{
    pssword verify with createHmac mehtod: ${verifyHashPassword3}\n
    `)
 });
+app.use("/bcrypt",(req,res,next)=>{
+    const hashPassword= hashPasswordbcrypt("12345");
+    const verifyHashPassword=verifyPasswordbcrypt("12345",hashPassword)
+
+    res.send(`
+    pssword hash with bcrypt mehtod: ${hashPassword}\n
+    pssword verify with bcrypt mehtod: ${verifyHashPassword}\n
+    `)
+ });
 app.listen(3000,()=>{
     console.log("web server run on port 3000")
 })
