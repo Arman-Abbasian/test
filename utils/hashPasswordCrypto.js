@@ -14,7 +14,7 @@ function hashPasswordCreateHash(password){
 }
 //create a hash with createHmac method in crypto package
 function hashPasswordCreateHmac(password){
-    const secret=crypto.randomBytes(16).toString("hex");
+    const secret="ae28bd1e739247d22e957b4480f3aac9392544f857eaaa49c34fa0788020feb5";
     const hash=crypto.createHmac("sha512",secret).update(password).digest("base64")
     const newHash=`$2s.${hash}.$2s`;
     return newHash
@@ -36,7 +36,7 @@ function verifyHashPasswordcreateHash(password,hashPassword){
 }
 //verify hash with createHmac method in crypto package
 function verifyHashPasswordcreateHmac(password,hashPassword){
-    const secret=crypto.randomBytes(16).toString("hex");
+    const secret="ae28bd1e739247d22e957b4480f3aac9392544f857eaaa49c34fa0788020feb5";
     const hash=crypto.createHmac("sha512",secret).update(password).digest("base64")
     const newHash=`$2s.${hash}.$2s`;
     console.log(newHash)

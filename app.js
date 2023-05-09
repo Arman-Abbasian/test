@@ -1,6 +1,7 @@
 const express=require("express");
 const { hashPasswordpbkdf2, hashPasswordCreateHash, hashPasswordCreateHmac, verifyHashPasswordepbkdf2, verifyHashPasswordcreateHash, verifyHashPasswordcreateHmac } = require("./utils/hashPasswordCrypto");
 const { hashPasswordbcrypt, verifyPasswordbcrypt } = require("./utils/hashPasswordBcrypt");
+const { jwtToken } = require("./utils/jwtToken");
 const app=express();
 app.use("/crypto",(req,res,next)=>{
    const hashPassword1= hashPasswordpbkdf2("12345");
@@ -27,6 +28,7 @@ app.use("/bcrypt",(req,res,next)=>{
     pssword verify with bcrypt mehtod: ${verifyHashPassword}\n
     `)
  });
+app.use("/jwt",jwtToken)
 app.listen(3000,()=>{
     console.log("web server run on port 3000")
 })
